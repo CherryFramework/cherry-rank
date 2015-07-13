@@ -99,6 +99,20 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 				}
 			}
 
+			return $this->get_views();
+
+		}
+
+		/**
+		 * Get clean views output
+		 *
+		 * @since  1.0.0
+		 * @return string
+		 */
+		public function get_views() {
+
+			global $post;
+
 			if ( ! in_array( 'views', $this->show_single ) && is_singular() ) {
 				return '';
 			}

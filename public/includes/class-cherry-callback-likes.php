@@ -100,6 +100,19 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 				}
 			}
 
+			return $this->get_likes();
+
+		}
+
+		/**
+		 * Get clean likes output
+		 *
+		 * @since  1.0.0
+		 * @return string
+		 */
+		public function get_likes() {
+			global $post;
+
 			if ( ! in_array( 'likes', $this->show_single ) && is_singular() ) {
 				return '';
 			}
@@ -111,7 +124,6 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 			$result = $this->get_likes_html( $post->ID );
 
 			return '<div class="meta-rank-likes" id="like-' . $post->ID . '">' . $result . '</div>';
-
 		}
 
 		/**

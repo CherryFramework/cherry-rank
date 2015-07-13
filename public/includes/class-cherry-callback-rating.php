@@ -100,6 +100,20 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 				}
 			}
 
+			return $this->get_rating();
+
+		}
+
+		/**
+		 * Get clean rating output
+		 *
+		 * @since  1.0.0
+		 * @return string
+		 */
+		public function get_rating() {
+
+			global $post;
+
 			if ( ! in_array( 'rating', $this->show_single ) && is_singular() ) {
 				return '';
 			}

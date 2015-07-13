@@ -100,6 +100,20 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 				}
 			}
 
+			return $this->get_dislikes();
+
+		}
+
+		/**
+		 * Get clean dislikes output
+		 *
+		 * @since  1.0.0
+		 * @return string
+		 */
+		public function get_dislikes() {
+
+			global $post;
+
 			if ( ! in_array( 'dislikes', $this->show_single ) && is_singular() ) {
 				return '';
 			}
