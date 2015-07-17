@@ -167,6 +167,10 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 				$_SESSION['cherry-views'] = array();
 			}
 
+			if ( ! is_object( $post ) ) {
+				return;
+			}
+
 			$_SESSION['cherry-views'][$post->ID] = $post->ID;
 			$views = get_post_meta( $post->ID, $this->meta_key, true );
 			$views = absint( $views );
