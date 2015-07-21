@@ -1,0 +1,8 @@
+<wpml-config>
+	<custom-fields>
+		<custom-field action="copy">cherry_dislikes</custom-field>
+		<custom-field action="copy">cherry_likes</custom-field>
+		<custom-field action="copy">cherry_rating</custom-field>
+		<custom-field action="copy">cherry_views</custom-field>
+	</custom-fields>
+</wpml-config>
