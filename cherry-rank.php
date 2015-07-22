@@ -121,7 +121,7 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 
 			$Cherry_Plugin_Update = new Cherry_Plugin_Update();
 			$Cherry_Plugin_Update -> init( array(
-					'version'			=> CHERRY_RANK_DIR,
+					'version'			=> CHERRY_RANK_VERSION,
 					'slug'				=> 'cherry-rank',
 					'repository_name'	=> 'cherry-rank'
 			));
