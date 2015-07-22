@@ -159,16 +159,16 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 
 			global $post;
 
+			if ( ! is_object( $post ) ) {
+				return;
+			}
+
 			if ( isset( $_SESSION['cherry-views'] ) && isset( $_SESSION['cherry-views'][$post->ID] ) ) {
 				return;
 			}
 
 			if ( ! isset( $_SESSION['cherry-views'] ) ) {
 				$_SESSION['cherry-views'] = array();
-			}
-
-			if ( ! is_object( $post ) ) {
-				return;
 			}
 
 			$_SESSION['cherry-views'][$post->ID] = $post->ID;
