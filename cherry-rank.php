@@ -144,7 +144,7 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 
 			wp_register_script(
 				'cherry-rank',
-				CHERRY_RANK_URI . 'public/assets/js/script.js', array('jquery'), CHERRY_RANK_VERSION, true
+				CHERRY_RANK_URI . 'public/assets/js/min/script.min.js', array('jquery'), CHERRY_RANK_VERSION, true
 			);
 
 
