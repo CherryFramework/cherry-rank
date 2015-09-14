@@ -99,6 +99,11 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 				}
 			}
 
+			/**
+			 * Fires this action to enqueue rank assets
+			 */
+			do_action( 'cherry_rank_enqueue_assets' );
+
 			return $this->get_views();
 
 		}

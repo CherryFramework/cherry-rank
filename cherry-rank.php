@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Rank
  * Plugin URI:  http://www.cherryframework.com/
  * Description: Adds rating, likes and views count for posts and cutom post types
- * Version:     1.0.0
+ * Version:     1.0.1
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-rank
@@ -55,6 +55,9 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 			add_action( 'wp_enqueue_scripts', array( $this, 'public_assets' ), 20 );
 			add_filter( 'cherry_compiler_static_css', array( $this, 'add_style_to_compiler' ) );
 
+			// Enqueue public JS only on specific action
+			add_action( 'cherry_rank_enqueue_assets', array( $this, 'enqueue_assets' ) );
+
 		}
 
 		/**
@@ -69,7 +72,7 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_RANK_VERSION', '1.0.0' );
+			define( 'CHERRY_RANK_VERSION', '1.0.1' );
 
 
 			/**
@@ -139,11 +142,23 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 				CHERRY_RANK_URI . 'public/assets/css/style.css', '', CHERRY_RANK_VERSION
 			);
 
-			wp_enqueue_script(
+			wp_register_script(
 				'cherry-rank',
 				CHERRY_RANK_URI . 'public/assets/js/script.js', array('jquery'), CHERRY_RANK_VERSION, true
 			);
 
+
+		}
+
+		/**
+		 * Enqueue required assets only on call
+		 *
+		 * @since  1.0.1
+		 *
+		 * @return void
+		 */
+		function enqueue_assets() {
+			wp_enqueue_script( 'cherry-rank' );
 			wp_localize_script(
 				'cherry-rank',
 				'cherry_rank',
@@ -186,5 +201,15 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 		}
 	}
 
-	Cherry_Rank::get_instance();
+	/**
+	 * Gets main class instance
+	 *
+	 * @since  1.0.1
+	 * @return object
+	 */
+	function cherry_rank() {
+		return Cherry_Rank::get_instance();
+	}
+
+	cherry_rank();
 }

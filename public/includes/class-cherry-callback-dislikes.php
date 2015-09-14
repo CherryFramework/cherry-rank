@@ -100,6 +100,11 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 				}
 			}
 
+			/**
+			 * Fires this action to enqueue rank assets
+			 */
+			do_action( 'cherry_rank_enqueue_assets' );
+
 			return $this->get_dislikes();
 
 		}
