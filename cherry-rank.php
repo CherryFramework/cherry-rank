@@ -147,7 +147,6 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 				CHERRY_RANK_URI . 'public/assets/js/min/script.min.js', array('jquery'), CHERRY_RANK_VERSION, true
 			);
 
-
 		}
 
 		/**
