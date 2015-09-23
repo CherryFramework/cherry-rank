@@ -11,13 +11,13 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 
 // If class 'Cherry_Callback_Rating' not exists.
-if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
+if ( ! class_exists( 'Cherry_Callback_Rating' ) ) {
 
 	/**
 	 * Add rating system and callback
@@ -58,6 +58,9 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		 */
 		public $show_loop = array();
 
+		/**
+		 * Constructor for the classs
+		 */
 		function __construct() {
 
 			add_filter( 'cherry_pre_get_the_post_rating', array( $this, 'macros_callback' ), 10, 2 );
@@ -83,8 +86,8 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		 * Register callback for likes macros to process it in shortcodes
 		 *
 		 * @since  1.0.2
-		 * @param  array $data existing callbacks
-		 * @param  array $atts shortcode attributes
+		 * @param  array $data existing callbacks.
+		 * @param  array $atts shortcode attributes.
 		 * @return array
 		 */
 		public function register_rating_macros( $data, $atts ) {
@@ -96,7 +99,7 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		 * Init macros callbacks
 		 *
 		 * @since  1.0.0
-		 * @return void
+		 * @return string
 		 */
 		public function macros_callback( $pre, $attr ) {
 
@@ -122,7 +125,7 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		 * Callback for shortcode macros
 		 *
 		 * @since  1.0.2
-		 * @return void
+		 * @return string
 		 */
 		public function shortcode_macros_callback() {
 
@@ -179,7 +182,7 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 			$rating_meta = wp_parse_args( $rating_meta, array(
 				'rate'  => 0,
 				'total' => 5,
-				'votes' => 0
+				'votes' => 0,
 			) );
 
 			$votes  = '<span class="rating-votes">' . $rating_meta['votes'] . '</span>';
@@ -203,8 +206,8 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		 * Get stars markup for star rating
 		 *
 		 * @since  1.0.0
-		 * @param  float   $current current rating value
-		 * @param  integer $total   total rating steps count
+		 * @param  float   $current current rating value.
+		 * @param  integer $total   total rating steps count.
 		 * @return string
 		 */
 		public function get_stars( $current = 0, $total = 5, $post_id = false ) {
@@ -285,7 +288,7 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 			$current_rate = wp_parse_args( $current_rate, array(
 				'rate'  => 0,
 				'total' => 5,
-				'votes' => 0
+				'votes' => 0,
 			) );
 
 			$votes      = intval( $current_rate['votes'] );
@@ -295,9 +298,9 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 			$new_count = ( ceil( $curr_count * $votes ) + $rate ) / ( $votes + 1 );
 
 			$new_rate = array(
-				'rate'  => round( $new_count , 2),
+				'rate'  => round( $new_count , 2 ),
 				'total' => 5,
-				'votes' => $votes + 1
+				'votes' => $votes + 1,
 			);
 
 			update_post_meta( $post_id, $this->meta_key, $new_rate );
@@ -319,12 +322,12 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		public static function get_instance() {
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
+			}
 
 			return self::$instance;
 		}
-
 	}
 
 	Cherry_Callback_Rating::get_instance();

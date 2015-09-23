@@ -11,13 +11,13 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 
 // If class 'Cherry_Callback_Dislikes' not exists.
-if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
+if ( ! class_exists( 'Cherry_Callback_Dislikes' ) ) {
 
 	/**
 	 * Add rating system and callback
@@ -58,6 +58,9 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		 */
 		public $show_loop = array();
 
+		/**
+		 * Contructor for the class
+		 */
 		function __construct() {
 
 			add_filter( 'cherry_pre_get_the_post_dislikes', array( $this, 'macros_callback' ), 10, 2 );
@@ -83,8 +86,8 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		 * Register callback for dislikes macros to process it in shortcodes
 		 *
 		 * @since  1.0.2
-		 * @param  array $data existing callbacks
-		 * @param  array $atts shortcode attributes
+		 * @param  array $data existing callbacks.
+		 * @param  array $atts shortcode attributes.
 		 * @return array
 		 */
 		public function register_dislikes_macros( $data, $atts ) {
@@ -96,7 +99,7 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		 * Init macros callbacks
 		 *
 		 * @since  1.0.0
-		 * @return void
+		 * @return string  dislike button HTML
 		 */
 		public function macros_callback( $pre, $attr ) {
 
@@ -122,7 +125,7 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		 * Callback for shortcode macros
 		 *
 		 * @since  1.0.2
-		 * @return void
+		 * @return string
 		 */
 		public function shortcode_macros_callback() {
 
@@ -220,11 +223,11 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 			$dislikes_count = absint( $dislikes_count );
 
 			if ( false == $disliked ) {
-				$_SESSION['cherry-dislikes'][$post_id] = $post_id;
+				$_SESSION['cherry-dislikes'][ $post_id ] = $post_id;
 				$this->maybe_remove_like( $post_id );
 				$dislikes_count++;
 			} else {
-				unset( $_SESSION['cherry-dislikes'][$post_id] );
+				unset( $_SESSION['cherry-dislikes'][ $post_id ] );
 				$dislikes_count = $dislikes_count - 1;
 			}
 
@@ -246,7 +249,7 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		 * Check if user already liked this post and remove like
 		 *
 		 * @since  1.0.0
-		 * @param  int  $post_id  post ID to check
+		 * @param  int $post_id post ID to check.
 		 */
 		public function maybe_remove_like( $post_id ) {
 
@@ -254,11 +257,11 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 				return;
 			}
 
-			if ( ! isset( $_SESSION['cherry-likes'][$post_id] ) ) {
+			if ( ! isset( $_SESSION['cherry-likes'][ $post_id ] ) ) {
 				return;
 			}
 
-			unset( $_SESSION['cherry-likes'][$post_id] );
+			unset( $_SESSION['cherry-likes'][ $post_id ] );
 
 			$likes = get_post_meta( $post_id, 'cherry_likes', true );
 			$likes = $likes - 1;
@@ -278,12 +281,11 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		public static function get_instance() {
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
-
 	}
 
 	Cherry_Callback_Dislikes::get_instance();

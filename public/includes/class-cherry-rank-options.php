@@ -1,5 +1,6 @@
 <?php
 /**
+ * Add plugin-realted options to Cherry options page
  *
  * @package    Cherry_Rank
  * @subpackage Class
@@ -10,13 +11,13 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 
 // If class 'Cherry_Rank_Options' not exists.
-if ( !class_exists( 'Cherry_Rank_Options' ) ) {
+if ( ! class_exists( 'Cherry_Rank_Options' ) ) {
 
 	/**
 	 * Add options manager class
@@ -33,6 +34,9 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 		 */
 		private static $instance = null;
 
+		/**
+		 * Constructor for the class
+		 */
 		function __construct() {
 			add_filter( 'cherry_post_meta_options_list', array( $this, 'add_blog_options' ) );
 			add_filter( 'cherry_post_single_options_list', array( $this, 'add_single_options' ) );
@@ -42,7 +46,7 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 		 * Add blog options
 		 *
 		 * @since  1.0.0
-		 * @param  array  $options  default options array
+		 * @param  array $options default options array.
 		 * @return array
 		 */
 		public function add_blog_options( $options ) {
@@ -56,8 +60,8 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 					'rating'	=> __( 'Rating', 'cherry-rank' ),
 					'likes'		=> __( 'Likes', 'cherry-rank' ),
 					'dislikes'	=> __( 'Dislikes', 'cherry-rank' ),
-					'views'		=> __( 'Views', 'cherry-rank' )
-				)
+					'views'		=> __( 'Views', 'cherry-rank' ),
+				),
 			);
 
 			return $options;
@@ -67,7 +71,7 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 		 * Add single page options
 		 *
 		 * @since  1.0.0
-		 * @param  array  $options  default options array
+		 * @param  array $options default options array.
 		 * @return array
 		 */
 		public function add_single_options( $options ) {
@@ -81,8 +85,8 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 					'rating'	=> __( 'Rating', 'cherry-rank' ),
 					'likes'		=> __( 'Likes', 'cherry-rank' ),
 					'dislikes'	=> __( 'Dislikes', 'cherry-rank' ),
-					'views'		=> __( 'Views', 'cherry-rank' )
-				)
+					'views'		=> __( 'Views', 'cherry-rank' ),
+				),
 			);
 
 			return $options;
@@ -95,9 +99,9 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 		 *
 		 * @uses   cherry_get_option  use cherry_get_option from Cherry framework if exist
 		 *
-		 * @param  string  $name    option name to get
-		 * @param  mixed   $default default option value
-		 * @return mixed            option value
+		 * @param  string $name option name to get.
+		 * @param  mixed  $default default option value.
+		 * @return mixed
 		 */
 		public static function get_option( $name, $default = false ) {
 
@@ -119,12 +123,11 @@ if ( !class_exists( 'Cherry_Rank_Options' ) ) {
 		public static function get_instance() {
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
-
 	}
 
 	Cherry_Rank_Options::get_instance();

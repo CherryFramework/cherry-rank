@@ -11,13 +11,13 @@
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 
 // If class 'Cherry_Rank_Init' not exists.
-if ( !class_exists( 'Cherry_Rank_Init' ) ) {
+if ( ! class_exists( 'Cherry_Rank_Init' ) ) {
 
 	/**
 	 * Define init class
@@ -34,8 +34,17 @@ if ( !class_exists( 'Cherry_Rank_Init' ) ) {
 		 */
 		private static $instance = null;
 
+		/**
+		 * Allowed rank-related meta array
+		 *
+		 * @since 1.0.0
+		 * @var   array
+		 */
 		public $allowed_meta = array( 'rating', 'likes', 'dislikes', 'views' );
 
+		/**
+		 * Constructor for the class
+		 */
 		function __construct() {
 			$this->init_callbacks();
 		}
@@ -69,12 +78,11 @@ if ( !class_exists( 'Cherry_Rank_Init' ) ) {
 		public static function get_instance() {
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
-
 	}
 
 	Cherry_Rank_Init::get_instance();

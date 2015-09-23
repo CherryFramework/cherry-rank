@@ -10,15 +10,20 @@
  * License:     GPL-3.0+
  * License URI: http://www.gnu.org/licenses/gpl-3.0.txt
  * Domain Path: /languages
+ *
+ * @package  Cherry Rank
+ * @category Core
+ * @author   Cherry Team
+ * @license  GPL-2.0+
  */
 
 // If this file is called directly, abort.
-if ( !defined( 'WPINC' ) ) {
+if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
 // If class 'Cherry_rank' not exists.
-if ( !class_exists( 'Cherry_Rank' ) ) {
+if ( ! class_exists( 'Cherry_Rank' ) ) {
 
 	/**
 	 * Sets up and initializes the Cherry Team plugin.
@@ -74,7 +79,6 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 			 */
 			define( 'CHERRY_RANK_VERSION', '1.0.2' );
 
-
 			/**
 			 * Set constant path to the plugin directory.
 			 *
@@ -126,7 +130,7 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 			$Cherry_Plugin_Update -> init( array(
 					'version'			=> CHERRY_RANK_VERSION,
 					'slug'				=> 'cherry-rank',
-					'repository_name'	=> 'cherry-rank'
+					'repository_name'	=> 'cherry-rank',
 			));
 		}
 
@@ -144,7 +148,7 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 
 			wp_register_script(
 				'cherry-rank',
-				CHERRY_RANK_URI . 'public/assets/js/min/script.min.js', array('jquery'), CHERRY_RANK_VERSION, true
+				CHERRY_RANK_URI . 'public/assets/js/min/script.min.js', array( 'jquery' ), CHERRY_RANK_VERSION, true
 			);
 
 		}
@@ -163,7 +167,7 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 				'cherry_rank',
 				array(
 					'ajaxurl' => admin_url( 'admin-ajax.php' ),
-					'nonce'   => wp_create_nonce( 'cherry_rank' )
+					'nonce'   => wp_create_nonce( 'cherry_rank' ),
 				)
 			);
 		}
@@ -193,9 +197,9 @@ if ( !class_exists( 'Cherry_Rank' ) ) {
 		public static function get_instance() {
 
 			// If the single instance hasn't been set, set it now.
-			if ( null == self::$instance )
+			if ( null == self::$instance ) {
 				self::$instance = new self;
-
+			}
 			return self::$instance;
 		}
 	}
