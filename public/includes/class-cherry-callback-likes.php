@@ -88,7 +88,7 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 		 * @return array
 		 */
 		public function register_likes_macros( $data, $atts ) {
-			$data['like'] = array( $this, 'shortcode_macros_callback' );
+			$data['likes'] = array( $this, 'shortcode_macros_callback' );
 			return $data;
 		}
 

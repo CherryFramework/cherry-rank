@@ -88,7 +88,7 @@ if ( !class_exists( 'Cherry_Callback_Dislikes' ) ) {
 		 * @return array
 		 */
 		public function register_dislikes_macros( $data, $atts ) {
-			$data['dislike'] = array( $this, 'shortcode_macros_callback' );
+			$data['dislikes'] = array( $this, 'shortcode_macros_callback' );
 			return $data;
 		}
 
