@@ -7,6 +7,7 @@ Plug-in which allows you to create and manage "ratings","likes", "dislikes" and 
 #### v1.0.2 ####
 
 * ADD: Rank-related macros for shortode templates
+* FIX: Code style guide fixes
 
 #### v1.0.1 ####
 
