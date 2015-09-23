@@ -61,6 +61,7 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		function __construct() {
 
 			add_filter( 'cherry_pre_get_the_post_rating', array( $this, 'macros_callback' ), 10, 2 );
+			add_filter( 'cherry_shortcodes_data_callbacks', array( $this, 'register_rating_macros' ), 10, 2 );
 			add_action( 'wp_ajax_cherry_handle_rating', array( $this, 'ajax_handle' ) );
 			add_action( 'wp_ajax_nopriv_cherry_handle_rating', array( $this, 'ajax_handle' ) );
 
@@ -76,6 +77,19 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 				session_start();
 			}
 
+		}
+
+		/**
+		 * Register callback for likes macros to process it in shortcodes
+		 *
+		 * @since  1.0.2
+		 * @param  array $data existing callbacks
+		 * @param  array $atts shortcode attributes
+		 * @return array
+		 */
+		public function register_rating_macros( $data, $atts ) {
+			$data['rating'] = array( $this, 'shortcode_macros_callback' );
+			return $data;
 		}
 
 		/**
@@ -100,13 +114,22 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 				}
 			}
 
-			/**
-			 * Fires this action to enqueue rank assets
-			 */
-			do_action( 'cherry_rank_enqueue_assets' );
-
 			return $this->get_rating();
 
+		}
+
+		/**
+		 * Callback for shortcode macros
+		 *
+		 * @since  1.0.2
+		 * @return void
+		 */
+		public function shortcode_macros_callback() {
+
+			global $post;
+
+			$result = $this->get_rating_html( $post->ID );
+			return '<div class="meta-rank-rating" id="rating-' . $post->ID . '">' . $result . '</div>';
 		}
 
 		/**
@@ -137,14 +160,15 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 		 * Get post Rating HTML
 		 *
 		 * @since  1.0.0
+		 * @since  1.0.2 pass additional parameters to cherry_meta_views_format
 		 * @return string
 		 */
 		public function get_rating_html( $post_id ) {
 
-			$format = apply_filters(
-				'cherry_meta_rating_format',
-				__( '%1$s (%2$s votes. Average %3$s of %4$s)', 'cherry-rank' )
-			);
+			/**
+			 * Fires this action to enqueue rank assets
+			 */
+			do_action( 'cherry_rank_enqueue_assets' );
 
 			$rating_meta = get_post_meta( $post_id, $this->meta_key, true );
 
@@ -162,6 +186,12 @@ if ( !class_exists( 'Cherry_Callback_Rating' ) ) {
 			$rating = '<span class="rating-val">' . $rating_meta['rate'] . '</span>';
 
 			$star_rating = $this->get_stars( $rating_meta['rate'], $rating_meta['total'], $post_id );
+
+			$format = apply_filters(
+				'cherry_meta_rating_format',
+				__( '%1$s (%2$s votes. Average %3$s of %4$s)', 'cherry-rank' ),
+				$star_rating, $votes, $rating, $rating_meta['total'], $post_id
+			);
 
 			return sprintf(
 				$format, $star_rating, $votes, $rating, $rating_meta['total']

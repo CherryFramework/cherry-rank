@@ -61,6 +61,7 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 		function __construct() {
 
 			add_filter( 'cherry_pre_get_the_post_views', array( $this, 'macros_callback' ), 10, 2 );
+			add_filter( 'cherry_shortcodes_data_callbacks', array( $this, 'register_views_macros' ), 10, 2 );
 			add_action( 'wp_head', array( $this, 'save_views' ) );
 
 			$this->show_single = Cherry_Rank_Options::get_option(
@@ -75,6 +76,19 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 				session_start();
 			}
 
+		}
+
+		/**
+		 * Register callback for views macros to process it in shortcodes
+		 *
+		 * @since  1.0.2
+		 * @param  array $data existing callbacks
+		 * @param  array $atts shortcode attributes
+		 * @return array
+		 */
+		public function register_views_macros( $data, $atts ) {
+			$data['views'] = array( $this, 'shortcode_macros_callback' );
+			return $data;
 		}
 
 		/**
@@ -99,12 +113,21 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 				}
 			}
 
-			/**
-			 * Fires this action to enqueue rank assets
-			 */
-			do_action( 'cherry_rank_enqueue_assets' );
-
 			return $this->get_views();
+
+		}
+
+		/**
+		 * Callback for shortcode macros
+		 *
+		 * @since  1.0.2
+		 * @return void
+		 */
+		public function shortcode_macros_callback() {
+
+			global $post;
+			$result = $this->get_views_html( $post->ID );
+			return '<div class="meta-rank-views">' . $result . '</div>';
 
 		}
 
@@ -136,17 +159,24 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 		 * Get post Rating HTML
 		 *
 		 * @since  1.0.0
+		 * @since  1.0.2 pass additional parameters to cherry_meta_views_format
 		 * @return string
 		 */
 		public function get_views_html( $post_id ) {
 
-			$format = apply_filters(
-				'cherry_meta_views_format',
-				'<span class="meta-rank-views-count">%s</span>'
-			);
+			/**
+			 * Fires this action to enqueue rank assets
+			 */
+			do_action( 'cherry_rank_enqueue_assets' );
 
 			$views = get_post_meta( $post_id, $this->meta_key, true );
 			$views = absint( $views );
+
+			$format = apply_filters(
+				'cherry_meta_views_format',
+				'<span class="meta-rank-views-count">%s</span>',
+				$views, $post_id
+			);
 
 			return sprintf(
 				$format, $views
@@ -155,7 +185,7 @@ if ( !class_exists( 'Cherry_Callback_Views' ) ) {
 		}
 
 		/**
-		 * Ajax handler for rating processing
+		 * Handle view
 		 *
 		 * @since  1.0.0
 		 * @return void

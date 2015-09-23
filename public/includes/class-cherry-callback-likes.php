@@ -61,6 +61,7 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 		function __construct() {
 
 			add_filter( 'cherry_pre_get_the_post_likes', array( $this, 'macros_callback' ), 10, 2 );
+			add_filter( 'cherry_shortcodes_data_callbacks', array( $this, 'register_likes_macros' ), 10, 2 );
 			add_action( 'wp_ajax_cherry_handle_like', array( $this, 'ajax_handle' ) );
 			add_action( 'wp_ajax_nopriv_cherry_handle_like', array( $this, 'ajax_handle' ) );
 
@@ -76,6 +77,19 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 				session_start();
 			}
 
+		}
+
+		/**
+		 * Register callback for likes macros to process it in shortcodes
+		 *
+		 * @since  1.0.2
+		 * @param  array $data existing callbacks
+		 * @param  array $atts shortcode attributes
+		 * @return array
+		 */
+		public function register_likes_macros( $data, $atts ) {
+			$data['like'] = array( $this, 'shortcode_macros_callback' );
+			return $data;
 		}
 
 		/**
@@ -100,13 +114,22 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 				}
 			}
 
-			/**
-			 * Fires this action to enqueue rank assets
-			 */
-			do_action( 'cherry_rank_enqueue_assets' );
-
 			return $this->get_likes();
 
+		}
+
+		/**
+		 * Callback for shortcode macros
+		 *
+		 * @since  1.0.2
+		 * @return void
+		 */
+		public function shortcode_macros_callback() {
+
+			global $post;
+
+			$result = $this->get_likes_html( $post->ID );
+			return '<div class="meta-rank-likes" id="like-' . $post->ID . '">' . $result . '</div>';
 		}
 
 		/**
@@ -116,6 +139,7 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 		 * @return string
 		 */
 		public function get_likes() {
+
 			global $post;
 
 			if ( ! in_array( 'likes', $this->show_single ) && is_singular() ) {
@@ -135,14 +159,15 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 		 * Get post Rating HTML
 		 *
 		 * @since  1.0.0
+		 * @since  1.0.2 pass additional parameters to cherry_meta_views_format
 		 * @return string
 		 */
 		public function get_likes_html( $post_id ) {
 
-			$format = apply_filters(
-				'cherry_meta_likes_format',
-				'<a href="#" class="meta-rank-like-this %3$s" data-post="%2$s">%1$s</a>'
-			);
+			/**
+			 * Fires this action to enqueue rank assets
+			 */
+			do_action( 'cherry_rank_enqueue_assets' );
 
 			$likes_count = get_post_meta( $post_id, $this->meta_key, true );
 			$likes_count = absint( $likes_count );
@@ -154,6 +179,12 @@ if ( !class_exists( 'Cherry_Callback_Likes' ) ) {
 			) {
 				$liked = 'action-done';
 			}
+
+			$format = apply_filters(
+				'cherry_meta_likes_format',
+				'<a href="#" class="meta-rank-like-this %3$s" data-post="%2$s">%1$s</a>',
+				$likes_count, $post_id, $liked
+			);
 
 			return sprintf(
 				$format, $likes_count, $post_id, $liked
