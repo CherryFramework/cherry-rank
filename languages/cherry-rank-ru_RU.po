@@ -1,0 +1,55 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: blank\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-09 17:56+0200\n"
+"PO-Revision-Date: 2015-11-09 17:56+0200\n"
+"Last-Translator: \n"
+"Language-Team: Cherry Team <support@cherryframework.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: _e;__;__;_x;esc_html_e;esc_html__;esc_attr_e;"
+"esc_attr__;_x:1,2c;_n:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 1.8.6\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: public/includes/class-cherry-callback-rating.php:195
+#, php-format
+msgid "%1$s (%2$s votes. Average %3$s of %4$s)"
+msgstr "%1$s (%2$s голоса. Среднее значение %3$s из %4$s)"
+
+#: public/includes/class-cherry-rank-options.php:55
+#: public/includes/class-cherry-rank-options.php:80
+msgid "Additional post meta"
+msgstr "Дополнительные метаданные записей"
+
+#: public/includes/class-cherry-rank-options.php:56
+#: public/includes/class-cherry-rank-options.php:81
+msgid "Enable/disable additional post meta."
+msgstr "Включить/Отключить дополнительные метаданные записей"
+
+#: public/includes/class-cherry-rank-options.php:60
+#: public/includes/class-cherry-rank-options.php:85
+msgid "Rating"
+msgstr "Рейтинг"
+
+#: public/includes/class-cherry-rank-options.php:61
+#: public/includes/class-cherry-rank-options.php:86
+msgid "Likes"
+msgstr "Likes"
+
+#: public/includes/class-cherry-rank-options.php:62
+#: public/includes/class-cherry-rank-options.php:87
+msgid "Dislikes"
+msgstr "Dislikes"
+
+#: public/includes/class-cherry-rank-options.php:63
+#: public/includes/class-cherry-rank-options.php:88
+msgid "Views"
+msgstr "Просмотры"
