@@ -106,7 +106,9 @@ if ( ! class_exists( 'Cherry_Rank_Options' ) ) {
 		public static function get_option( $name, $default = false ) {
 
 			if ( function_exists( 'cherry_get_option' ) ) {
+
 				$result = cherry_get_option( $name, $default );
+
 				return $result;
 			}
 

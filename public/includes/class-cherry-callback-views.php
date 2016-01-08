@@ -66,18 +66,29 @@ if ( ! class_exists( 'Cherry_Callback_Views' ) ) {
 			add_filter( 'cherry_pre_get_the_post_views', array( $this, 'macros_callback' ), 10, 2 );
 			add_filter( 'cherry_shortcodes_data_callbacks', array( $this, 'register_views_macros' ), 10, 2 );
 			add_action( 'wp_head', array( $this, 'save_views' ) );
-
-			$this->show_single = Cherry_Rank_Options::get_option(
-				'ratings_add_single_meta', array( 'rating', 'likes', 'dislikes', 'views' )
-			);
-
-			$this->show_loop = Cherry_Rank_Options::get_option(
-				'ratings_add_blog_meta', array( 'rating', 'likes', 'dislikes', 'views' )
-			);
+			add_action( 'init', array( $this, 'set_options' ) );
 
 			if ( ! session_id() ) {
 				session_start();
 			}
+
+		}
+
+		/**
+		 * Store required theme options into class property
+		 *
+		 * @since  1.0.3
+		 * @return void
+		 */
+		public function set_options() {
+
+			$this->show_single = Cherry_Rank_Options::get_option(
+				'rank_add_single_meta', array( 'rating', 'likes', 'dislikes', 'views' )
+			);
+
+			$this->show_loop = Cherry_Rank_Options::get_option(
+				'rank_add_blog_meta', array( 'rating', 'likes', 'dislikes', 'views' )
+			);
 
 		}
 

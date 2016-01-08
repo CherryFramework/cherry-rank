@@ -3,7 +3,7 @@
  * Plugin Name: Cherry Rank
  * Plugin URI:  http://www.cherryframework.com/
  * Description: Adds rating, likes and views count for posts and cutom post types
- * Version:     1.0.2
+ * Version:     1.0.3
  * Author:      Cherry Team
  * Author URI:  http://www.cherryframework.com/
  * Text Domain: cherry-rank
@@ -77,7 +77,7 @@ if ( ! class_exists( 'Cherry_Rank' ) ) {
 			 *
 			 * @since 1.0.0
 			 */
-			define( 'CHERRY_RANK_VERSION', '1.0.2' );
+			define( 'CHERRY_RANK_VERSION', '1.0.3' );
 
 			/**
 			 * Set constant path to the plugin directory.
