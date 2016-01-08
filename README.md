@@ -6,6 +6,7 @@ Plug-in which allows you to create and manage "ratings","likes", "dislikes" and 
 
 #### v1.0.3 ####
 
+* UPD: Translation files
 * FIX: Options handling
 
 #### v1.0.2 ####
